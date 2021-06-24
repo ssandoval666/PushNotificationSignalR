@@ -2,8 +2,6 @@
 {
     const payload =JSON.parse(m);
 
-    
-
     if (window.Notification && Notification.permission === 'granted') {
         const options = {
             body: payload.body
@@ -16,7 +14,10 @@
     else if (window.Notification && Notification.permission !== 'denied') {
         Notification.requestPermission(status => {
             if (status === 'granted') {
-                //notification();
+                const options = {
+                    body: payload.body
+                };
+                swRegistration.showNotification(payload.message, options);
             } else {
                 alert('You denied or dismissed permissions to notifications.');
             }
@@ -31,15 +32,30 @@
 }
 
 async function subscribe()
-{
-    const existingSubscription = await swRegistration.pushManager.getSubscription();
+{    
+    const existingSubscription = await swRegistration.pushManager.getSubscription();    
+    var Rta = false;
 
-    if (!existingSubscription) {
+    
+    if (existingSubscription != null) {
         await worker.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: applicationServerPublicKey
         });
     }
 
-    return true;
+    if (window.Notification && Notification.permission === 'granted') {
+        Rta = true;
+    }
+    // If the user hasn't told whether he wants to be notified or not
+    // Note: because of Chrome, we cannot be sure the permission property
+    // is set, therefore it's unsafe to check for the "default" value.
+    else if (window.Notification && Notification.permission !== 'denied') {
+        Notification.requestPermission(status => {
+            if (status === 'granted') {
+                Rta = true;
+            }
+        });
+    }
+    return Rta;
 }

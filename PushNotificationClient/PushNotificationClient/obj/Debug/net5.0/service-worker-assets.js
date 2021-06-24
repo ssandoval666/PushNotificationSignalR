@@ -25,7 +25,7 @@
       "url": "_content\/Blazorise.Material\/blazorise.material.js"
     },
     {
-      "hash": "sha256-oiJFDWneMPQ6x\/nJaEx3a6Xjl2Rb6iOFVWDi\/\/eeHDo=",
+      "hash": "sha256-OrLvTQY8T1+qLIhswSRdAstz3kZa+GRU3Sf5HHD0jgk=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -869,11 +869,11 @@
       "url": "_framework\/dotnet.5.0.7.js"
     },
     {
-      "hash": "sha256-68+JJUNxIJ7Mx+9HxdZqn\/P68UMHaiu0C6e66nsCST4=",
+      "hash": "sha256-ybMYLxLiYbGM+fugDXzHa8VBv7019tdYerD4azWMCzw=",
       "url": "_framework\/PushNotificationClient.dll"
     },
     {
-      "hash": "sha256-L2rM89KeZS8BmSRvxor+4oWw\/Ujy2ZoZjcOH8k905mU=",
+      "hash": "sha256-sfzcYAtl3+WUNWxKJR3tLkpQL1gegT7MF3NLkwKTHLw=",
       "url": "_framework\/PushNotificationClient.pdb"
     },
     {
@@ -1805,7 +1805,7 @@
       "url": "js\/pushNotification.js"
     },
     {
-      "hash": "sha256-CZ0UcMtezUturbKRwHSSSAVzPYj4\/BgrHZ1HDQk9XaY=",
+      "hash": "sha256-kCiBZvH5eL4s4NTANsTwDsd5frzLsOtvOXHD0JmLZSA=",
       "url": "js\/scripts.js"
     },
     {
@@ -1829,5 +1829,5 @@
       "url": "PushNotificationClient.bundle.scp.css"
     }
   ],
-  "version": "2z1TtlB\/"
+  "version": "qkog4d5h"
 };

@@ -130,11 +130,10 @@ using Microsoft.AspNetCore.SignalR.Client;
 
     private async Task RequestNotificationSubscriptionAsync()
     {
-        //var subscription = await JSRuntime.InvokeAsync<NotificationSubscription>("blazoring.requestSubscription");
         var subscription = await JSRuntime.InvokeAsync<bool>("subscribe");
-        if (subscription != null)
+        
+        if (subscription)
         {
-            //await SubscribeToNotifications(subscription);
 
             _connection = new HubConnectionBuilder()
             .WithUrl(url)
@@ -149,36 +148,14 @@ using Microsoft.AspNetCore.SignalR.Client;
 
             _connection.On<string>("notification", async m =>
             {
-                await ShowNotification(m);
+                await JSRuntime.InvokeVoidAsync("notification", m);
                 StateHasChanged();
             });
 
         }
     }
 
-    public async Task ShowNotification(string m)
-    {
-
-        await JSRuntime.InvokeVoidAsync("notification", m);
-
-    }
-    public async Task SubscribeToNotifications(NotificationSubscription subscription)
-    {
-        var IsOnLine = await localStorage.GetItemAsync<bool>("ConnectionStatus");
-
-        if (IsOnLine)
-        {
-            var JWToken = await localStorage.GetItemAsync<string>("JWT");
-
-            Http.DefaultRequestHeaders.Add("Authorization", "Bearer " + JWToken);
-            var response = await Http.PostAsJsonAsync("api/v1/Notification/NotificationSubscribe", subscription);
-            //response.EnsureSuccessStatusCode();
-
-        }
-
-
-    }
-
+   
     public async Task GetToken()
     {
         var JWToken = await localStorage.GetItemAsync<string>("JWT");
