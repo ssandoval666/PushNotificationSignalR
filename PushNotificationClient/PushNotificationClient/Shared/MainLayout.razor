@@ -1,0 +1,122 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+@using PushNotificationClient.Class
+@using Microsoft.AspNetCore.SignalR.Client
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
+
+@code
+{
+    string url = "https://localhost:44333/notificationhub";
+    HubConnection _connection = null;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+
+        var IsOnLine = await localStorage.GetItemAsync<bool>("ConnectionStatus");
+
+        if (IsOnLine)
+        {
+            await GetToken();
+        }
+
+
+        if (firstRender)
+            await RequestNotificationSubscriptionAsync();
+
+    }
+
+    private async Task RequestNotificationSubscriptionAsync()
+    {
+        //var subscription = await JSRuntime.InvokeAsync<NotificationSubscription>("blazoring.requestSubscription");
+        var subscription = await JSRuntime.InvokeAsync<bool>("subscribe");
+        if (subscription != null)
+        {
+            //await SubscribeToNotifications(subscription);
+
+            _connection = new HubConnectionBuilder()
+            .WithUrl(url)
+            .Build();
+
+            await _connection.StartAsync();
+
+            _connection.Closed += async (s) =>
+            {
+                await _connection.StartAsync();
+            };
+
+            _connection.On<string>("notification", async m =>
+            {
+                await ShowNotification(m);
+                StateHasChanged();
+            });
+
+        }
+    }
+
+    public async Task ShowNotification(string m)
+    {
+
+        await JSRuntime.InvokeVoidAsync("notification", m);
+
+    }
+    public async Task SubscribeToNotifications(NotificationSubscription subscription)
+    {
+        var IsOnLine = await localStorage.GetItemAsync<bool>("ConnectionStatus");
+
+        if (IsOnLine)
+        {
+            var JWToken = await localStorage.GetItemAsync<string>("JWT");
+
+            Http.DefaultRequestHeaders.Add("Authorization", "Bearer " + JWToken);
+            var response = await Http.PostAsJsonAsync("api/v1/Notification/NotificationSubscribe", subscription);
+            //response.EnsureSuccessStatusCode();
+
+        }
+
+
+    }
+
+    public async Task GetToken()
+    {
+        var JWToken = await localStorage.GetItemAsync<string>("JWT");
+        JWToken = null;
+
+        if (JWToken == null)
+        {
+            UserInfo oUser = new UserInfo();
+
+            oUser.Email = "sss@dd.com";
+            oUser.Password = "eeee";
+
+            //Http.DefaultRequestHeaders.Add("x-api-version", "1.0");
+            var response = await Http.PostAsJsonAsync("api/v1/Token/Token", oUser);
+            var message = response.Content.ReadAsStringAsync();
+
+            await localStorage.SetItemAsync("JWT", message.Result);
+        }
+
+    }
+
+
+}
