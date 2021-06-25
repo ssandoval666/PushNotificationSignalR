@@ -35,7 +35,7 @@ window.addEventListener('beforeinstallprompt', function (e) {
     window.PWADeferredPrompt = e;
     // Notify C# Code that it can show an alert 
     // MyBlazorInstallMethod must be [JSInvokable]
-    DotNet.invokeMethodAsync("MyBlazorAssembly", "MyBlazorInstallMethod");
+    //DotNet.invokeMethodAsync("MyBlazorAssembly", "MyBlazorInstallMethod");
 });
 
 window.addEventListener('appinstalled', () => {

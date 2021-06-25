@@ -1777,7 +1777,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-72B4Bq3SXMtM9QwWzdo+PDAoeu+Vs2HGd18OdYYuyeM=",
+      "hash": "sha256-jwJBL2DQRinWllzvvzd7q0P4fwvU7QPbQzaxnvUho5Y=",
       "url": "index.html"
     },
     {
@@ -1805,7 +1805,7 @@
       "url": "js\/pushNotification.js"
     },
     {
-      "hash": "sha256-kCiBZvH5eL4s4NTANsTwDsd5frzLsOtvOXHD0JmLZSA=",
+      "hash": "sha256-6PQNt4whHjOzjsnAEjgZF\/SvUThd03ZqDeOQQ9+OrYw=",
       "url": "js\/scripts.js"
     },
     {
@@ -1817,7 +1817,7 @@
       "url": "sample-data\/weather.json"
     },
     {
-      "hash": "sha256-NRDVG\/eCw3mILQApQ9iiAHp8TinyhtTYYwal9Xx6aSw=",
+      "hash": "sha256-VBGpswyDHvl1KUTFSUsZ4PnVoBBDHomRhKOlN0RAXP8=",
       "url": "site.js"
     },
     {
@@ -1829,5 +1829,5 @@
       "url": "PushNotificationClient.bundle.scp.css"
     }
   ],
-  "version": "qkog4d5h"
+  "version": "hQsMFmc5"
 };

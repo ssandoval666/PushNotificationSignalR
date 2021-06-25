@@ -30,6 +30,11 @@
             </Summary>
             
         </member>
+        <member name="P:WebApiPushNotification.Class.NotificationMessageText.ConnectionID">
+            <Summary>
+             Id Connection
+            </Summary>
+        </member>
         <member name="P:WebApiPushNotification.Class.NotificationMessageText.message">
             <Summary>
              Mensaje de la notificacion
@@ -262,6 +267,29 @@
         <member name="M:JWTWebApi.Controllers.NotificationSubscribeController.NotificationSubscribe(WebApiPushNotification.Class.NotificationSubscription)">
             <summary>  
             Subcripcion para los PushNotification Requiere JWT  
+            </summary>
+        </member>
+        <member name="T:JWTWebApi.Controllers.NotificationWithIdController">
+            <Summary>
+             Controlador para el Manejo de la subscripcion
+            </Summary>
+            
+        </member>
+        <member name="F:JWTWebApi.Controllers.NotificationWithIdController._hubContext">
+            <Summary>
+             Parametro de Configuracion
+            </Summary>
+            
+        </member>
+        <member name="M:JWTWebApi.Controllers.NotificationWithIdController.#ctor(Microsoft.AspNetCore.SignalR.IHubContext{WebApiPushNotification.NotificationHub})">
+            <Summary>
+             Controlador para el Manejo de la subscripcion
+            </Summary>
+            
+        </member>
+        <member name="M:JWTWebApi.Controllers.NotificationWithIdController.NotificationWithId(WebApiPushNotification.Class.NotificationMessageText)">
+            <summary>  
+            Envio de Mensajes con SignalR  
             </summary>
         </member>
         <member name="T:JWTWebApi.Controllers.SendNotificationController">

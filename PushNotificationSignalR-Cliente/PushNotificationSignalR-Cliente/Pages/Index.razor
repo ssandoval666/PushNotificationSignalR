@@ -1,0 +1,49 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+@using PushNotificationSignalRCliente.Class
+@using Microsoft.AspNetCore.SignalR.Client
+
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<button class="btn btn-primary" @onclick="PushRegister">Registar PushNotification</button>
+
+
+
+@code {
+
+    string url = "https://localhost:44333/notificationhub";
+    HubConnection _connection = null;
+
+
+    private void PushRegister()
+    {
+        ShowPushRegister();
+    }
+
+    private async Task ShowPushRegister()
+    {
+        var Subscription = await JSRuntime.InvokeAsync<bool>("subscribe");
+
+        if (Subscription)
+        {
+
+            SignalR oSignal = SignalR.GetInstance();
+
+            _connection = await oSignal.GetConnection();
+
+            _connection.On<string>("notification", async m =>
+            {
+                await JSRuntime.InvokeVoidAsync("notification", m);
+
+            });
+        }        
+    }
+}

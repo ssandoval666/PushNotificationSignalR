@@ -33,6 +33,11 @@ namespace WebApiPushNotification.Class
     public class NotificationMessageText
     {
         ///<Summary>
+        /// Id Connection
+        ///</Summary>
+        public string ConnectionID { get; set; }
+
+        ///<Summary>
         /// Mensaje de la notificacion
         ///</Summary>
         public string message { get; set; }
